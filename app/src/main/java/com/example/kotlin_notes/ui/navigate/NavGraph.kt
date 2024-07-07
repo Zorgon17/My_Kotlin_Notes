@@ -27,3 +27,8 @@ fun AppNavHost(
 
     }
 }
+
+enum class HomeScreen() {
+    Start,
+    Add
+}

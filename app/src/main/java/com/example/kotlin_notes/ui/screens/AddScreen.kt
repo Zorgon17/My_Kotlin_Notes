@@ -13,6 +13,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import com.example.kotlin_notes.ui.navigate.HomeScreen
 
 
 @Composable
@@ -20,7 +21,7 @@ fun AddScreenScaffold(innerPaddingValues: PaddingValues, navController: NavHostC
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {navController.navigate(HomeScreen.Start.name)}
+                onClick = { navController.navigate(HomeScreen.Start.name) }
             ) {
                 Icon(Icons.Filled.Done, "")
             }
@@ -46,10 +47,3 @@ fun NoteTitle() {
 fun NoteBody() {
     TextField(modifier = Modifier.fillMaxSize(), value = "Place for body...", onValueChange = {})
 }
-//@Preview(showBackground = true)
-//@Composable
-//fun AddScreenPreview() {
-//    Kotlin_NotesTheme {
-//        AddScreenScaffold()
-//    }
-//}
