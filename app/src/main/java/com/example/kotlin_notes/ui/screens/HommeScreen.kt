@@ -46,7 +46,7 @@ fun HomeScreen(innerPaddingValues: PaddingValues) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(100) { note ->
-            Note(note)
+            Note(note+1)
         }
     }
 }

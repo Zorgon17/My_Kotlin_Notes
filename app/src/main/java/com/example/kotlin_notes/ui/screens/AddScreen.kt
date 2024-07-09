@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,10 +41,20 @@ fun AddScreen(innerPaddingValues: PaddingValues) {
 
 @Composable
 fun NoteTitle() {
-    TextField(modifier = Modifier.fillMaxWidth(), value = "Place for title...", onValueChange = {})
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = "",
+        onValueChange = {},
+        placeholder = { Text("Place for title...") }
+    )
 }
 
 @Composable
 fun NoteBody() {
-    TextField(modifier = Modifier.fillMaxSize(), value = "Place for body...", onValueChange = {})
+    TextField(
+        modifier = Modifier.fillMaxSize(),
+        value = "",
+        onValueChange = {},
+        placeholder = { Text("Place for body...") }
+    )
 }
