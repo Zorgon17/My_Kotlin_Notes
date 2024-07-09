@@ -9,17 +9,17 @@ import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface EntityDao {
+interface NoteDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(entity: Entity)
+    suspend fun insert(note: Note)
 
     @Update
-    suspend fun update(entity: Entity)
+    suspend fun update(note: Note)
 
     @Delete
-    suspend fun delete(entity: Entity)
+    suspend fun delete(note: Note)
 
-    @Query("SELECT * from Entity WHERE noteId = :noteId")
-    fun getNote(noteId: Int): Flow<Entity>
+    @Query("SELECT * from Note WHERE noteId = :noteId")
+    fun getNote(noteId: Int): Flow<Note>
 }
