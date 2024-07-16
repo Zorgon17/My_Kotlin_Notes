@@ -23,7 +23,7 @@ import com.example.kotlin_notes.database.NoteDatabase
  * App container for Dependency injection.
  */
 interface AppContainer {
-    val noteRepository: NoteRepository
+    val noteRepository: OfflineNoteRepository
 }
 
 /**
@@ -33,7 +33,7 @@ class AppDataContainer(private val context: Context) : AppContainer {
     /**
      * Implementation for [ItemsRepository]
      */
-    override val noteRepository: NoteRepository by lazy {
+    override val noteRepository: OfflineNoteRepository by lazy {
         OfflineNoteRepository(NoteDatabase.getDatabase(context).noteDao())
     }
 }

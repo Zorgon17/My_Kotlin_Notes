@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlin_notes.ui.screens.AddScreenScaffold
-import com.example.kotlin_notes.ui.screens.HomeScreen
 import com.example.kotlin_notes.ui.screens.HomeScreenScaffold
 
 @Composable
@@ -22,7 +21,7 @@ fun AppNavHost(
         }
 
         composable(route = HomeScreen.Add.name) {
-            AddScreenScaffold(innerPaddingValues,navController)
+            AddScreenScaffold(innerPaddingValues,navigateBack = { navController.navigate(HomeScreen.Start.name) })
         }
 
     }

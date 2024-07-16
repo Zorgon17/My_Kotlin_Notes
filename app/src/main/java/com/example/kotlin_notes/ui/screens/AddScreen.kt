@@ -12,49 +12,80 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import com.example.kotlin_notes.ui.navigate.HomeScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.kotlin_notes.ui.AppViewModelProvider
+import kotlinx.coroutines.launch
 
 
 @Composable
-fun AddScreenScaffold(innerPaddingValues: PaddingValues, navController: NavHostController) {
+fun AddScreenScaffold(
+    innerPaddingValues: PaddingValues,
+    navigateBack: () -> Unit,
+    viewModel: AddScreenViewModel = viewModel(factory = AppViewModelProvider.Factory)
+) {
+    val coroutineScope = rememberCoroutineScope()
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { navController.navigate(HomeScreen.Start.name) }
+                onClick = {
+                    coroutineScope.launch {
+                        viewModel.saveNote()
+                        navigateBack()
+                    }
+                },
             ) {
                 Icon(Icons.Filled.Done, "")
             }
         }) { innerPaddingValues ->
-        AddScreen(innerPaddingValues)
+        AddScreen(
+            innerPaddingValues = innerPaddingValues,
+            noteUiState = viewModel.noteUiState,
+            onNoteValueChange = viewModel::updateUiState
+        )
     }
 }
 
 @Composable
-fun AddScreen(innerPaddingValues: PaddingValues) {
+fun AddScreen(
+    innerPaddingValues: PaddingValues,
+    noteUiState: NoteUiState,
+    onNoteValueChange: (NoteDetails) -> Unit
+) {
     Column {
-        NoteTitle()
-        NoteBody()
+        NoteTitle(noteDetails = noteUiState.noteDetails, onValueChange = onNoteValueChange)
+        NoteBody(noteDetails = noteUiState.noteDetails, onValueChange = onNoteValueChange)
     }
 }
 
 @Composable
-fun NoteTitle() {
+fun NoteTitle(
+    noteDetails: NoteDetails,
+    onValueChange: (NoteDetails) -> Unit = {},
+    enabled: Boolean = true
+) {
     TextField(
         modifier = Modifier.fillMaxWidth(),
-        value = "",
-        onValueChange = {},
-        placeholder = { Text("Place for title...") }
+        value = noteDetails.title,
+        onValueChange = { onValueChange(noteDetails.copy(title = it)) },
+        placeholder = { Text("Place for title...") },
+        enabled = enabled
     )
 }
 
 @Composable
-fun NoteBody() {
+fun NoteBody(
+    noteDetails: NoteDetails,
+    onValueChange: (NoteDetails) -> Unit = {},
+    enabled: Boolean = true
+) {
     TextField(
         modifier = Modifier.fillMaxSize(),
-        value = "",
-        onValueChange = {},
-        placeholder = { Text("Place for body...") }
+        value = noteDetails.body,
+        onValueChange = { onValueChange(noteDetails.copy(body = it)) },
+        placeholder = { Text("Place for body...") },
+        enabled = enabled
     )
 }
